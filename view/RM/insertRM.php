@@ -136,7 +136,7 @@ if (isset($_POST['btn-insert'])) {
 						<li class="ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
 							<ul class="nav nav-list tree">
 								<li><a href="../home.php">Pendaftaran</a></li>
-								<li><a href="/RM/readAllRm.php">Rekam Medis</a></li>
+								<li><a href="readAllRm.php">Rekam Medis</a></li>
 								<li><a href="../Diagnosis/diagnosis.php">Daftar Diagnosis</a></li>
 							</ul>
 						</li>
