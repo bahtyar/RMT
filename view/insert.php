@@ -33,9 +33,8 @@ if (isset($_POST['btn-insert'])) {
 	$telp 			= $_POST['telp'];
 	$jenis_pasien 	= $_POST['jenis_pasien'];
 	$nama_rs 		= $_POST['nama_rs'];
-	$poli 			= $_POST['poli'];
 
-	$value = array('API'=>$API,'nama'=>$nama,'NIK'=>$NIK, 'jen_kelamin'=>$jen_kelamin,'temp_lahir'=>$temp_lahir,'tgl_lahir'=>$tgl_lahir,'alamat'=>$alamat,'status'=>$status,'pekerjaan'=>$pekerjaan, 'jabatan'=>$jabatan,'lama_kerja'=>$lama_kerja,'agama'=>$agama,'suku'=>$suku,'telp'=>$telp,'jenis_pasien'=>$jenis_pasien, 'nama_rs'=>$nama_rs,'poli'=>$poli);
+	$value = array('API'=>$API,'nama'=>$nama,'NIK'=>$NIK, 'jen_kelamin'=>$jen_kelamin,'temp_lahir'=>$temp_lahir,'tgl_lahir'=>$tgl_lahir,'alamat'=>$alamat,'status'=>$status,'pekerjaan'=>$pekerjaan, 'jabatan'=>$jabatan,'lama_kerja'=>$lama_kerja,'agama'=>$agama,'suku'=>$suku,'telp'=>$telp,'jenis_pasien'=>$jenis_pasien, 'nama_rs'=>$nama_rs);
 
 	$ch = curl_init( $url );
 	curl_setopt( $ch, CURLOPT_POST, 1);
@@ -73,7 +72,6 @@ if (isset($_POST['btn-insert'])) {
 	<link href="../asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="../asset/img/logomi.png">
 </head>
 <!-- end: Head -->
 
@@ -115,22 +113,20 @@ if (isset($_POST['btn-insert'])) {
 							<p class="animated fadeInRight">Sat,October 1st 2029</p>
 						</li>
 
-						<li class="ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-							<ul class="nav nav-list tree">
-								<li><a href="home.php">Pendaftaran</a></li>
-								<li><a href="RM/readAllRm.php">Rekam Medis</a></li>
-								<li><a href="Diagnosis/diagnosis.php">Daftar Diagnosis</a></li>
-							</ul>
-						</li>
+						<li class="ripple"><a href="home.php"><span class="fa-home fa"></span>Beranda</a></li>
+
+						<li class="ripple"><a href="RM/readAllRm.php"><span class="fa fa-plus-square"></span>Rekam Medis</a></li>
+
+						<li class="ripple"><a href="Diagnosis/diagnosis.php"><span class="fa fa-list-alt"></span> Daftar Diagnosis</a></li>
 
 						<li class="active ripple">
-							<a class="tree-toggle nav-header"><span class="fa fa-table"></span> Form 
+							<a class="tree-toggle nav-header"><span class="fa fa-pencil-square-o"></span> Form 
 								<span class="fa-angle-right fa right-arrow text-right"></span>
 							</a>
 							<ul class="nav nav-list tree">
 								<li><a href="insert.php">Tambah Pendaftaran</a></li>
 							</ul>
-						</li> 
+						</li>  
 					</ul>
 				</div>
 			</div>
@@ -140,114 +136,117 @@ if (isset($_POST['btn-insert'])) {
 
 			<div id="content">
 
-				<div class="col-md-12 panel">
-					<div class="col-md-12 panel-heading">
-						<h4>Tambah Pendaftaran</h4>
-					</div>
-					<div class="col-md-12 panel-body" style="padding-bottom:30px;">
-						<div class="col-md-12">
-							<form class="cmxform" method="POST" >
-								<!--menampilkan pesan eror/sukses-->
-								<?php
-								if(isset($_GET['registered']))
-								{
-									?>
-									<div class="alert alert-success">
-										<i class="glyphicon glyphicons-ok"></i> &nbsp; Berhasil Menambah Data
-									</div>
-									<?php
-								}
-								?>
+				<div class="col-md-12 top-20 padding-0">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-heading"><h3>Form</h3>
+								<p class="animated fadeInDown"> Tambah Pendaftaran </p>
+							</div>							
 
-								<div class="col-md-6">
-									<div class="form-group">
-										<input type="hidden" name="API" value="<?php echo $API; ?>" />
-									</div>
+							<div class="panel-body">
+								<div class="col-md-12">
+									<form class="cmxform" method="POST" >									
+										<center><b><span style="font-size:18px">Tambah Pendaftaran</span></b></center><br>
+										<div class="col-md-6">
 
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">                                
-										<input type="text" class="form-text" name="nama" required>										
-										<label>Nama Lengkap</label>
-									</div>
+											<div class="form-group">
+												<input type="hidden" name="API" value="<?php echo $API; ?>" />
+											</div>
+											<table style="font-size:14px" width="100%">									
+												<tbody>
+													<tr valign="top" height="21px">
+														<td width="25%">Nama Lengkap</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="nama" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td width="25%">NIK</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="NIK" class="form-control android" required></div></td>
+													</tr>
+													<tr valign="top" height="21px">
+														<td>Jenis Kelamin</td>
+														<td>:</td>
+														<td><div class="form-group"><input type="text" name="jen_kelamin" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td >Tempat Lahir</td>
+														<td >:</td>
+														<td ><div class="form-group"><input type="text" name="temp_lahir" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td >Tgl. Lahir</td>
+														<td >:</td>
+														<td><div class="form-group"><input type="date" name="tgl_lahir" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td>Alamat</td>
+														<td>:</td>														
+														<td><div class="form-group"><input type="text" name="alamat" class="form-control android" required></div></td>
+													</tr>
+													<tr valign="top" height="21px">
+														<td>No. Telepon</td>
+														<td>:</td>														
+														<td><div class="form-group"><input type="text" name="telp" class="form-control android" required></div></td>
+													</tr>
+													<tr valign="top" height="21px">
+														<td width="25%">Nama Fasilitas</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="nama_rs" class="form-control android" required></div></td>
+													</tr>
+												</tbody>
+											</table> 
+										</div>
 
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="NIK" required>
-										<label>NIK</label>
-									</div>
+										<div class="col-md-6">										
+											<table style="font-size:14px" width="100%">									
+												<tbody>
+													<tr valign="top" height="21px">
+														<td width="25%">Status</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="status" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td width="25%">Pekerjaan</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="pekerjaan" class="form-control android" required></div></td>
+													</tr>
+													<tr valign="top" height="21px">
+														<td>Jabatan</td>
+														<td>:</td>
+														<td><div class="form-group"><input type="text" name="jabatan" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td >Lama Kerja</td>
+														<td >:</td>
+														<td ><div class="form-group"><input type="text" name="lama_kerja" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td >Agama</td>
+														<td >:</td>
+														<td><div class="form-group"><input type="text" name="agama" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td>Suku Bangsa</td>
+														<td>:</td>														
+														<td><div class="form-group"><input type="text" name="suku" class="form-control android" required></div></td>
+													</tr>	
+													<tr valign="top" height="21px">
+														<td width="25%">Jenis Pasien</td>
+														<td width="1%">:</td>
+														<td><div class="form-group"><input type="text" name="jenis_pasien" class="form-control android" required></div></td>
+													</tr>											
+												</tbody>
+											</table> 
+										</div>
 
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="jen_kelamin" required>
-										<label>Jenis Kelamin (L/P)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="status" required>
-										<label>Status</label>
-									</div>
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="agama" required>
-										<label>Agama</label>
-									</div>
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="suku" required>
-										<label>Suku</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="telp" required>
-										<label>Telepon</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="jenis_pasien" required>
-										<label>Jenis Pasien</label>
-									</div>
+										<div class="col-md-12">                              
+											<input class="submit btn btn-success" type="submit" value="Buat" name="btn-insert">
+											<a href="home.php" class="btn btn-danger">Kembali</a>                              
+										</div>
+									</form>
 								</div>
-
-								<div class="col-md-6">
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="temp_lahir" required>
-										<label>Tempat Lahir</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="date" class="form-text" name="tgl_lahir" required>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="alamat" required>
-										<label>Alamat</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="pekerjaan" vrequired>
-										<label>Pekerjaan</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="jabatan" required>
-										<label>Jabatan</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="lama_kerja" required>
-										<label>Lama Kerja (Tahun)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="nama_rs" required>
-										<label>Nama RS</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="poli" required>
-										<label>Poli</label>
-									</div>                      
-								</div>                   
-								<div class="col-md-12">                              
-									<input class="submit btn btn-success" type="submit" value="Buat" name="btn-insert">
-									<a href="home.php" class="btn btn-danger">Kembali</a>                              
-								</div>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -38,7 +38,6 @@ if ($db->is_loggedin()!="") {
 	<link href="../asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="../asset/img/logomi.png">
 </head>
 <!-- end: Head -->
 
@@ -80,16 +79,14 @@ if ($db->is_loggedin()!="") {
 							<p class="animated fadeInRight">Sat,October 1st 2029</p>
 						</li>
 
-						<li class="active ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-							<ul class="nav nav-list tree">
-								<li><a href="home.php">Pendaftaran</a></li>
-								<li><a href="RM/readAllRm.php">Rekam Medis</a></li>
-								<li><a href="Diagnosis/diagnosis.php">Daftar Diagnosis</a></li>
-							</ul>
-						</li>
+						<li class="active ripple"><a href="home.php"><span class="fa-home fa"></span>Beranda</a></li>
+
+						<li class="ripple"><a href="RM/readAllRm.php"><span class="fa fa-plus-square"></span>Rekam Medis</a></li>
+
+						<li class="ripple"><a href="Diagnosis/diagnosis.php"><span class="fa fa-list-alt"></span> Daftar Diagnosis</a></li>
 
 						<li class="ripple">
-							<a class="tree-toggle nav-header"><span class="fa fa-table"></span> Form 
+							<a class="tree-toggle nav-header"><span class="fa fa-pencil-square-o"></span> Form 
 								<span class="fa-angle-right fa right-arrow text-right"></span>
 							</a>
 							<ul class="nav nav-list tree">
@@ -104,19 +101,12 @@ if ($db->is_loggedin()!="") {
 
 			<div id="content">
 
-				<div class="panel box-shadow-none content-header">
-					<div class="panel-body">
-						<div class="col-md-12">
-							<h3 class="animated fadeInLeft">Data Pendaftaran </h3>                        
-						</div>
-					</div>
-				</div>
-
-
 				<div class="col-md-12 top-20 padding-0">
 					<div class="col-md-12">
 						<div class="panel">
-							<div class="panel-heading"><h3>Data Pendaftaran</h3></div>
+							<div class="panel-heading"><h3>Pendaftaran Pasien</h3>
+								<p class="animated fadeInDown">	Home </p>
+							</div>
 							<div class="panel-body">								
 								<div class="responsive-table">
 									<table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -129,8 +119,7 @@ if ($db->is_loggedin()!="") {
 												<td>Alamat</td>                 
 												<td>Jenis Pasien</td>
 												<td>Fasilitas Kesehatan</td>
-												<td>Poli</td>
-												<td><a href="insert.php">Tambah</a></td>
+												<td><a href="insert.php"><span class="fa fa-pencil-square-o"></span> Tambah</a></td>
 											</tr>
 											<tbody>
 												<?php if (count($obj->data)) {
@@ -140,18 +129,17 @@ if ($db->is_loggedin()!="") {
 													<td><?php echo $data->nama;?></td>
 													<td><?php echo $data->NIK;?></td>
 													<td><?php echo $data->jen_kelamin;?></td>
-													<td><?php echo $data->tgl_lahir;?></td>
+													<td><?php $row['join_date'] = $data->tgl_lahir;
+													echo date("d/m/Y",strtotime($row['join_date']));?></td>
 													<td><?php echo $data->alamat;?></td>
 													<td><?php echo $data->jenis_pasien;?></td>
 													<td><?php echo $data->nama_rs;?></td>
-													<td><?php echo $data->poli;?></td>
 
 													<td>
-														<a href="update.php?id=<?php echo $data->id_pendaftaran;?>">Edit</a> |
-
-														<a href="delete.php?id=<?php echo $data->id_pendaftaran;?>" onclick="return confirm('Anda yakin menghapus data <?php echo $data->nama;?>?');">Delete</a> |
-
-														<a href="RM/readById.php?id=<?php echo $data->id_pendaftaran;?>">Lihat RM</a>
+														<a href="detail.php?id=<?php echo $data->id_pendaftaran;?>">Info</a> 
+														|
+														<a href="delete.php?id=<?php echo $data->id_pendaftaran;?>" onclick="return confirm('Anda yakin menghapus data <?php echo $data->nama;?>?');">Delete</a>
+														<!-- <a href="RM/readById.php?id=<?php echo $data->id_pendaftaran;?>">Lihat RM</a> -->
 													</td>
 
 												</tr>

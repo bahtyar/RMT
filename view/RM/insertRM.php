@@ -51,9 +51,10 @@ if (isset($_POST['btn-insert'])) {
 	$diagnosa_banding 	= $_POST['diagnosa_banding'];
 	$pelayanan 			= $_POST['pelayanan'];
 	$nama_dr 			= $_POST['nama_dr'];
+	$poli 				= $_POST['poli'];
 
 
-	$value = array('API'=>$API,'id'=>$id,'ruang'=>$ruang, 'nama_rs'=>$nama_rs, 'mrs'=>$mrs,'jam'=>$jam,'anamnesa'=>$anamnesa,'riwayat_penyakit'=>$riwayat_penyakit, 'riwayat_pekerjaan'=>$riwayat_pekerjaan,'riwayat_alergi'=>$riwayat_alergi,'keadaan_umum'=>$keadaan_umum,'kesadaran'=>$kesadaran,'E'=>$E,'V'=>$V, 'M'=>$M,'suhu'=>$suhu, 'nadi'=>$nadi,'respirasi'=>$respirasi,'TD'=>$TD,'pemeriksaan'=>$pemeriksaan,'penunjang'=>$penunjang, 'diagnosa_kerja'=>$diagnosa_kerja,'diagnosa_banding'=>$diagnosa_banding, 'pelayanan'=>$pelayanan, 'nama_dr'=>$nama_dr);
+	$value = array('API'=>$API,'id'=>$id,'ruang'=>$ruang, 'nama_rs'=>$nama_rs, 'mrs'=>$mrs,'jam'=>$jam,'anamnesa'=>$anamnesa,'riwayat_penyakit'=>$riwayat_penyakit, 'riwayat_pekerjaan'=>$riwayat_pekerjaan,'riwayat_alergi'=>$riwayat_alergi,'keadaan_umum'=>$keadaan_umum,'kesadaran'=>$kesadaran,'E'=>$E,'V'=>$V, 'M'=>$M,'suhu'=>$suhu, 'nadi'=>$nadi,'respirasi'=>$respirasi,'TD'=>$TD,'pemeriksaan'=>$pemeriksaan,'penunjang'=>$penunjang, 'diagnosa_kerja'=>$diagnosa_kerja,'diagnosa_banding'=>$diagnosa_banding, 'pelayanan'=>$pelayanan, 'nama_dr'=>$nama_dr, 'poli'=>$poli);
 
 	$ch = curl_init( $url );
 	curl_setopt( $ch, CURLOPT_POST, 1);
@@ -91,7 +92,6 @@ if (isset($_POST['btn-insert'])) {
 	<link href="../../asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="../asset/img/logomi.png">
 </head>
 <!-- end: Head -->
 
@@ -132,23 +132,17 @@ if (isset($_POST['btn-insert'])) {
 							<h1 class="animated fadeInLeft">21:00</h1>
 							<p class="animated fadeInRight">Sat,October 1st 2029</p>
 						</li>
-
-						<li class="ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-							<ul class="nav nav-list tree">
-								<li><a href="../home.php">Pendaftaran</a></li>
-								<li><a href="readAllRm.php">Rekam Medis</a></li>
-								<li><a href="../Diagnosis/diagnosis.php">Daftar Diagnosis</a></li>
-							</ul>
-						</li>
-
-						<li class="active ripple">
-							<a class="tree-toggle nav-header"><span class="fa fa-table"></span> Form 
+						<li class="ripple"><a href="../home.php"><span class="fa-home fa"></span>Beranda</a></li>
+						<li class="active ripple"><a href="readAllRm.php"><span class="fa fa-plus-square"></span>Rekam Medis</a></li>
+						<li class="ripple"><a href="../Diagnosis/diagnosis.php"><span class="fa fa-list-alt"></span> Daftar Diagnosis</a></li>
+						<li class="ripple">
+							<a class="tree-toggle nav-header"><span class="fa fa-pencil-square-o"></span> Form 
 								<span class="fa-angle-right fa right-arrow text-right"></span>
 							</a>
 							<ul class="nav nav-list tree">
 								<li><a href="../insert.php">Tambah Pendaftaran</a></li>
 							</ul>
-						</li> 
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -158,197 +152,297 @@ if (isset($_POST['btn-insert'])) {
 			<!--Start Content-->
 			<div id="content">
 
-				<div class="col-md-12 panel">
-					<div class="col-md-12 panel-heading">
-						<h4><?php echo "Nomor Rekam Medis Pasien : ".$obj->data->NIK; ?></h4>
-					</div>
-					<div class="col-md-12 panel-body" style="padding-bottom:30px;">
-						<div class="col-md-12">
+				<div class="col-md-12 top-20 padding-0">
+					<div class="col-md-12">	
+						<div class="panel">					
+							<div class="panel-heading"><h3>Detail Rekam Medis</h3>
+								<p class="animated fadeInDown">
+									Rekam Medis <span class="fa-angle-right fa"></span> Info <span class="fa-angle-right fa"></span> Tambah RM
+								</p>
+							</div>
+
 							<form class="cmxform" method="post">
-								<!--menampilkan pesan eror/sukses-->
-								<?php
-								if(isset($_GET['registered']))
-								{
-									?>
-									<div class="alert alert-success">
-										<i class="glyphicon glyphicons-ok"></i> &nbsp; Berhasil membuat RM 
+								<div class="panel-body">
+									<center><b><span style="font-size:18px">Rekam Medis <?php echo $obj->data->nama; ?></span></b></center><br>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="hidden" name="API" value="<?php echo $API; ?>" />
+										</div>
+										<div class="form-group">
+											<input type="hidden" id="id" name="id" value="<?php echo $id;?>">
+										</div>
+										<table style="font-size:14px" width="100%">									
+											<tbody>
+												<tr valign="top" height="21px">
+													<td width="25%">Nama Pasien</td>
+													<td width="1%">:</td>
+													<td><div class="form-group"><input type="text" name="nama" class="form-control border-bottom" value="<?php echo $obj->data->nama; ?>" readonly></div></td>
+												</tr>	
+												<tr valign="top" height="21px">
+													<td>Jenis Kelamin</td>
+													<td>:</td>
+													<td><div class="form-group"><input type="text" name="jen_kelamin" class="form-control border-bottom" value="<?php echo $obj->data->jen_kelamin; ?>" readonly></div></td>
+												</tr>	
+												<tr valign="top" height="21px">
+													<td >Umur</td>
+													<td >:</td>
+													<td ><div class="form-group"><input type="text" name="umur" class="form-control border-bottom" value="<?php $today 	= date("Y-m-d");
+													$diff 		= date_diff(date_create($obj->data->tgl_lahir), date_create($today));
+													echo $umur 	= $diff->format('%y');?>" readonly></div></td>
+												</tr>	
+												<tr valign="top" height="21px">
+													<td >Alamat</td>
+													<td >:</td>
+													<td><div class="form-group"><input type="text" name="alamat" class="form-control border-bottom" value="<?php echo $obj->data->alamat;?>" readonly></div></td>
+												</tr>	
+												<tr valign="top" height="21px">
+													<td>Nama Dokter</td>
+													<td>:</td>														
+													<td><div class="form-group"><input type="text" name="nama_dr" class="form-control border-bottom" required></div></td>
+												</tr>
+											</tbody>
+										</table> 
 									</div>
-									<?php
-								}
-								?>
-
-								<div class="col-md-6">
-
-									<div class="form-group">
-										<input type="hidden" name="API" value="<?php echo $API; ?>" />
+									<div class="col-md-6">
+										<table style="font-size:14px" width="100%">
+											<tbody>
+												
+												<tr valign="top" height="21px">
+													<td width="25%">Nomor RM.</td>
+													<td width="1%">:</td>
+													<td><div class="form-group"><b>
+														<input type="text" name="no_RM" class="form-control border-bottom" value="<?php echo $obj->data->NIK;?>" readonly></b></div>
+													</td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>MRS</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="date" name="mrs" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Jam</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="time" name="jam" class="form-control border-bottom" required>
+													</div></td>
+												</tr>												
+												<tr valign="top" height="21px">
+													<td>Nama Fasilitas</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="nama_rs" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Ruang</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="ruang" class="form-control border-bottom" required></div>
+													</td>
+												</tr>													
+												<tr valign="top" height="21px">
+													<td>Poli</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="poli" class="form-control border-bottom" required></div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-
-									<div >
-										<input type="hidden" id="id" name="id" value="<?php echo $id;?>">
-									</div>											
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="nama" value="<?php echo $obj->data->nama;?>" >
-										<span class="bar"></span>
-										<label>Nama Pasien</label>
-									</div>												
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="jen_kelamin" value="<?php echo $obj->data->jen_kelamin;?>" >
-										<span class="bar"></span>	
-										<label>Jenis Kelamin</label>									
-									</div> 
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">                                                     
-										<input type="text" class="form-text" name="alamat" value="<?php echo $obj->data->alamat;?>" >
-										<span class="bar"></span>
-										<label>Alamat</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">                                
-										<input type="text" class="form-text" name="ruang" required>
-										<span class="bar"></span>
-										<label>Ruang</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">                                
-										<input type="text" class="form-text" name="nama_rs" value="<?php echo $obj->data->nama_rs;?>" >
-										<span class="bar"></span>
-										<label>Nama Fasilitas Kesehatan</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">                                
-										<input type="date" class="form-text" name="mrs" required>
-										<span class="bar"></span>
-										<label>MRS</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="time" class="form-text" name="jam" required>
-										<span class="bar"></span>
-										<label>Jam</label>
-									</div>	
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="nama_dr" required>
-										<span class="bar"></span>
-										<label>Nama Dokter</label>
-									</div>							
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text " name="E" required>
-										<span class="bar"></span>
-										<label>GCS (Eye)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="V" required>
-										<span class="bar"></span>
-										<label>GCS (Verbal)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="M" required>
-										<span class="bar"></span>
-										<label>GCS (Motor)</label>
-									</div>	
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="keadaan_umum" required>
-										<span class="bar"></span>
-										<label>Keadaan umum</label>
-									</div>								
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="kesadaran" required>
-										<span class="bar"></span>
-										<label>Kesadaran</label>
-									</div>										
-
 								</div>
 
-								<div class="col-md-6">										
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="anamnesa" required>
-										<span class="bar"></span>
-										<label>Anamnesa</label>
+								<div class="panel-body">
+									<div class="col-md-12">
+										<table class="table table-condensed">
+											<thead>	
+												<br /><center><b><span style="font-size:16px">Anamnesa</span></b></center><br />
+											</thead>
+											<tbody>
+												<tr valign="top" height="20px">
+													<td width="20%">Keluhan</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="anamnesa" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr>
+													<td>Riwayat Penyakit</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="riwayat_penyakit" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr >
+													<td>Riwayat Pekerjaan</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="riwayat_pekerjaan" class="form-control border-bottom" value="<?php echo $obj->data->pekerjaan;?>" required>
+													</div></td>
+												</tr>
+												<tr>
+													<td>Riwayat Alergi</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="riwayat_alergi" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+											</tbody>
+										</table>
 									</div>
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="riwayat_penyakit" required>
-										<span class="bar"></span>
-										<label>Riwayat Penyakit</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="riwayat_pekerjaan" required>
-										<span class="bar"></span>
-										<label>Riwayat Pekerjaan</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="riwayat_alergi" required>
-										<span class="bar"></span>
-										<label>Riwayat Alergi</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="suhu" required >
-										<span class="bar"></span>
-										<label>Suhu (Celcius)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="nadi" required >
-										<span class="bar"></span>
-										<label>Nadi (x/menit)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="respirasi" required>
-										<span class="bar"></span>
-										<label>Respirasi (x/menit)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" id="TD" name="TD" required >
-										<span class="bar"></span>
-										<label>Tekanan Darah (mmHg)</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="pemeriksaan" required>
-										<span class="bar"></span>
-										<label>Pemeriksaan</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="penunjang" required>
-										<span class="bar"></span>
-										<label>Penunjang</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="diagnosa_kerja" required>
-										<span class="bar"></span>
-										<label>Diagnosis Kerja</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="diagnosa_banding" required >
-										<span class="bar"></span>
-										<label>Diagnosis Banding</label>
-									</div>
-
-									<div class="form-group form-animate-text" style="margin-top:40px !important;">
-										<input type="text" class="form-text" name="pelayanan" required>
-										<span class="bar"></span>
-										<label>Pelayanan</label>
-									</div>												
 								</div>
-								<div class="col-md-12">                              
-									<input class="submit btn btn-success" type="submit" value="Buat" name="btn-insert">
-									<a href="readById.php?id=<?php echo $id; ?>" class="btn btn-danger">Kembali</a>
+
+								<div class="panel-body">
+									<div class="col-md-12">
+										<table class="table table-condensed">
+											<thead>	
+												<center><b><span style="font-size:16px">Hasil Pemeriksaan Umum/Fisik</span></b></center><br />
+											</thead>
+											<tbody>
+												<tr valign="top" height="21px">
+													<td width="20%">Keadaan Umum</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="keadaan_umum" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Kesadaran</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="kesadaran" class="form-control border-bottom" required>
+													</div></td>
+												</tr>											
+											</tbody>
+										</table>
+									</div>
+
+									<div class="col-md-6">
+										<table class="table table-condensed">
+											<thead>	
+												<tr><th width="1%">GCS</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr valign="top" height="21px">
+													<td width="25%">Eye</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="E" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Verbal</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="V" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Motor</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="M" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div class="col-md-6">
+										<table class="table table-condensed">
+											<thead>	
+												<tr><th width="1%">TTV</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr valign="top" height="21px">
+													<td width="25%">Suhu</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="suhu" class="form-control border-bottom" required>
+													</div></td>
+													<td> &#176; C</td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Respirasi</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="respirasi" class="form-control border-bottom" required>
+													</div></td>
+													<td> &#215;/menit</td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Nadi</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="nadi" class="form-control border-bottom" required>
+													</div></td>
+													<td > &#215;/menit</td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Tekanan Darah</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="TD" class="form-control border-bottom" required>
+													</div></td>
+													<td > mmHg</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="panel-body">
+									<div class="col-md-12">
+										<table class="table table-condensed">
+											<tbody>
+												<tr valign="top" height="21px">
+													<td width="20%">Pemeriksaan</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="pemeriksaan" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Penunjang</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="penunjang" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td width="20%">Diagnosis Kerja</td>
+													<td width="1%">:</td>
+													<td><div class="form-group">
+														<input type="text" name="diagnosa_kerja" class="form-control border-bottom" required>
+													</div></td>
+												</tr>
+												<tr valign="top" height="21px">
+													<td>Diagnosis Banding</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="diagnosa_banding" class="form-control border-bottom" required>
+													</div></td>
+												</tr>	
+												<tr valign="top" height="21px">
+													<td>Pelayanan</td>
+													<td>:</td>
+													<td><div class="form-group">
+														<input type="text" name="pelayanan" class="form-control border-bottom" required>
+													</div></td>
+												</tr>										
+											</tbody>
+										</table>
+									</div>
+
+
+									<div class="col-md-12">                              
+										<input class="submit btn btn-success" type="submit" value="Buat" name="btn-insert">
+										<a href="readById.php?id=<?php echo $id; ?>" class="btn btn-danger">Kembali</a>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -371,6 +465,7 @@ if (isset($_POST['btn-insert'])) {
 
 
 				<!-- custom -->
+
 				<script src="../../asset/js/main.js"></script>
 				<script type="text/javascript">
 					$(document).ready(function(){

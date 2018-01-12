@@ -2,8 +2,6 @@
 
 require_once("../../session.php");
 require_once("../../include/DB_Functions.php");
-require_once("../../include/DB_diagnosis.php");
-
 
 $db = new DB_Functions();
 
@@ -40,7 +38,6 @@ if (!$db->is_loggedin()=="") {
 	<link href="../../asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="../asset/img/logomi.png">
 </head>
 <!-- end: Head -->
 
@@ -83,22 +80,20 @@ if (!$db->is_loggedin()=="") {
 							<p class="animated fadeInRight">Sat,October 1st 2029</p>
 						</li>
 
-						<li class="ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-							<ul class="nav nav-list tree">
-								<li><a href="../home.php">Pendaftaran</a></li>
-								<li><a href="../RM/readAllRm.php">Rekam Medis</a></li>
-								<li><a href="diagnosis.php">Daftar Diagnosis</a></li>
-							</ul>
-						</li>
+						<<li class="ripple"><a href="../home.php"><span class="fa-home fa"></span>Beranda</a></li>
 
-						<li class="active ripple">
-							<a class="tree-toggle nav-header"><span class="fa fa-table"></span> Form 
+						<li class="ripple"><a href="../RM/readAllRm.php"><span class="fa fa-plus-square"></span>Rekam Medis</a></li>
+
+						<li class="active ripple"><a href="diagnosis.php"><span class="fa fa-list-alt"></span> Daftar Diagnosis</a></li>
+
+						<li class="ripple">
+							<a class="tree-toggle nav-header"><span class="fa fa-pencil-square-o"></span> Form 
 								<span class="fa-angle-right fa right-arrow text-right"></span>
 							</a>
 							<ul class="nav nav-list tree">
 								<li><a href="../insert.php">Tambah Pendaftaran</a></li>
 							</ul>
-						</li> 
+						</li>
 					</ul>
 				</div>
 			</div>

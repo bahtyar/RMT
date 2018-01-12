@@ -40,7 +40,6 @@ if (!$db->is_loggedin()=="") {
 	<link href="../../asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="../asset/img/logomi.png">
 </head>
 <!-- end: Head -->
 
@@ -82,17 +81,11 @@ if (!$db->is_loggedin()=="") {
 							<h1 class="animated fadeInLeft">21:00</h1>
 							<p class="animated fadeInRight">Sat,October 1st 2029</p>
 						</li>
-
-						<li class="ripple"><a class="tree-toggle nav-header"><span class="fa-home fa"></span> Dashboard <span class="fa-angle-right fa right-arrow text-right"></span> </a>
-							<ul class="nav nav-list tree">
-								<li><a href="../home.php">Pendaftaran</a></li>
-								<li><a href="readAllRm.php">Rekam Medis</a></li>
-								<li><a href="../Diagnosis/diagnosis.php">Daftar Diagnosis</a></li>
-							</ul>
-						</li>
-
-						<li class="active ripple">
-							<a class="tree-toggle nav-header"><span class="fa fa-table"></span> Form 
+						<li class="ripple"><a href="../home.php"><span class="fa-home fa"></span>Beranda</a></li>
+						<li class="active ripple"><a href="readAllRm.php"><span class="fa fa-plus-square"></span>Rekam Medis</a></li>
+						<li class="ripple"><a href="../Diagnosis/diagnosis.php"><span class="fa fa-list-alt"></span> Daftar Diagnosis</a></li>
+						<li class="ripple">
+							<a class="tree-toggle nav-header"><span class="fa fa-pencil-square-o"></span> Form 
 								<span class="fa-angle-right fa right-arrow text-right"></span>
 							</a>
 							<ul class="nav nav-list tree">
@@ -109,21 +102,20 @@ if (!$db->is_loggedin()=="") {
 				<div class="col-md-12 top-20 padding-0">
 					<div class="col-md-12">
 						<div class="panel">
-							<div class="panel-heading"><h3>Data Rekam Medis</h3></div>
+							<div class="panel-heading"><h3>Rekam Medis</h3></div>
 							<div class="panel-body">
 								<div class="responsive-table">
 									<table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
 										<thead>
 											<tr>
+												<td>Nama Pasien</td>
 												<td>Nomor RM</td>
-												<td>Umur</td>
-												<td>Jenis Kelamin</td>
-												<td>MRS</td>
-												<td>Nama Fasilitas</td>                 
+												<td>Nama Fasilitas</td>												
+												<td>MRS</td>     
 												<td>Riwayat Penyakit</td>
 												<td>Diagnosis Kerja</td>
-												<td>Waktu Buat</td>
-												<td>Waktu Upadate</td>
+												<td>Pelayanan</td>
+												<td>Nama Dokter</td>
 												<td></td>
 											</tr>
 											<tbody>
@@ -132,17 +124,33 @@ if (!$db->is_loggedin()=="") {
 													foreach ($obj->data as $idx => $data) { ?>
 
 													<tr>
-														<td><?php echo $data->no_RM;?></td>
-														<td><?php echo $data->umur;?></td>
-														<td><?php echo $data->jen_kelamin;?></td>
-														<td><?php echo $data->mrs;?></td>
-														<td><?php echo $data->nama_rs;?></td>
-														<td><?php echo $data->riwayat_penyakit;?></td>
-														<td><?php echo $data->diagnosa_kerja;?></td>
-														<td><?php echo $data->created_at;?></td>
-														<td><?php echo $data->update_at;?></td>
 														<td>
-															<a href="update.php?id=<?php echo $data->id_rm;?>">Edit</a> |
+															<?php echo $data->nama;?>															
+														</td>
+														<td>
+															<?php echo $data->no_RM;?>															
+														</td>
+														<td>
+															<?php echo $data->nama_rs;?>														
+														</td>
+														<td>
+															<?php $row['join_date'] = $data->mrs;
+															echo date("d-m-Y",strtotime($row['join_date']));?>
+														</td>
+														<td>
+															<?php echo $data->riwayat_penyakit;?>
+														</td>
+														<td>
+															<?php echo $data->diagnosa_kerja;?>
+														</td>														
+														<td>
+															<?php echo $data->pelayanan;?>
+														</td>
+														<td>
+															<?php echo $data->nama_dr;?>
+														</td>
+														<td>															
+															<a href="detailRM.php?id=<?php echo $data->id_rm;?>">Info</a> |
 
 															<a href="deleteRM.php?id=<?php echo $data->id_rm;?>" onclick="return confirm('Anda yakin menghapus RM <?php echo $data->nama;?>?');">Delete</a>
 														</td>
@@ -159,7 +167,6 @@ if (!$db->is_loggedin()=="") {
 							</div>
 						</div>  
 					</div> 
-
 
 					<!--Footer-->
 					<!-- start: Javascript -->
